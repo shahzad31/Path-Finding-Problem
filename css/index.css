@@ -1,0 +1,16 @@
+#myCanvas{
+    margin-left:5%;
+    display: block;
+}
+#runSimulation{
+    margin: 5% 0% 0% 5%;
+    height: 38px;
+    width: 149px;
+    border-radius: 4px;
+    font-size: 17px;
+    color: blue;
+    cursor: pointer;
+}
+.headerText{
+    color:green;
+}
