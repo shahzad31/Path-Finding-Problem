@@ -33,12 +33,13 @@ $(document).ready(function () {
         $.ajax({
             method: "POST",
             url: "/getPath",
-            data: { name: "John", location: "Boston" }
-        })
-            .done(function( msg ) {
-                alert( "Data Saved: " + msg );
-            });
-        search(path);
+            headers: {
+            'Content-Type':'application/json'
+            },
+            data:JSON.stringify({'path':path,'robotPos':robotPos}) 
+        }).done(function( response ) {
+                travelToPath(response);
+        });
     });
     function notAlreadyAdded(pt) {
         for (var i = 0, l = path.length; i < l; i++) {
@@ -48,26 +49,6 @@ $(document).ready(function () {
         }
         return true;
     }
-
-    function search(path) {
-        path.sort(function (a, b) {
-            return utilities.distance(robotPos, a) - utilities.distance(robotPos, b);
-        });
-        traverseThePath();
-    }
-
-    function traverseThePath() {
-        var totalPath = [];
-        for (var k = 0, l = path.length; k < l - 1; k++) {
-            var travelPath = utilities.getPath(path[k], path[k + 1]);
-            for (var c = 0, z = travelPath.length; c < z; c++) {
-                totalPath.push(travelPath[c]);
-            }
-        }
-        travelToPath(totalPath);
-        path = [totalPath[totalPath.length - 1]];
-    }
-
     function travelToPath(tPath) {
         var l = tPath.length;
         var k = 0, j = 0;

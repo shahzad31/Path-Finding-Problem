@@ -1,4 +1,4 @@
-var utilities = {
+var utilities  = {
     TR:null,
     distance: function (pos0, pos1) {
         var d1 = Math.abs(pos1.x / 50 - pos0.x / 50);
