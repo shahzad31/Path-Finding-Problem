@@ -15,7 +15,6 @@ module.exports  = {
     },
     getPath: function (pt1, pt2) {
         var path = [], x0 = pt1.x, y0 = pt1.y, x1 = pt2.x, y1 = pt2.y,TR=this.TR;
-
         while (true) {
             path.push({x: x0, y: y0});
             if (x0 === x1 && y0 === y1)
@@ -83,5 +82,18 @@ module.exports  = {
             }
         }
         return totalPath;
+    },
+    sortDistanceWise:function(robotPos,points){
+        var self=this;
+        var path=[robotPos];
+        var currentPoint=robotPos;
+        while(points.length>0){
+            points.sort(function(a,b){
+                return self.distance(currentPoint, a) - self.distance(currentPoint, b);
+            });
+         currentPoint=points.shift();
+         path.push(currentPoint);
+        }
+        return path;
     }
 };

@@ -1,34 +1,35 @@
 $(document).ready(function () {
     var grid = [];
-    var path = [{x: 0, y: 0}];
-    var finalPath = [];
+    var path = [];
+    var gridSize=6;
     var TR = 50;
     var robotPos = {x: 0, y: 0};
-    var canvas = $("#myCanvas");
-    var context = canvas[0].getContext("2d");
-    context.fillStyle = 'yellow';
-    context.lineWidth = 1;
-    context.strokeStyle = 'black';
-    var drawing = new DrawingUtility();
-    drawing.init(context,robotPos,grid,TR);
-    utilities.TR=TR;
+    var canvas= $("#myCanvas");
+    var canvasObj = canvas[0];
+    var gridSelect=$("#gridSelect");
     var button = $("#runSimulation");
-    drawing.drawBoard();
-    function getMousePos(canvas, evt) {
-        var rect = canvas[0].getBoundingClientRect();
+    var drawing = new DrawingUtility();
+    drawing.init(robotPos,grid,TR,canvasObj);
+    utilities.TR=TR;
+    drawing.drawBoard(6,6);
+
+    function getMousePos(evt) {
+        var rect = canvasObj.getBoundingClientRect();
         var x = evt.clientX - rect.left;
         var y = evt.clientY - rect.top;
-        var pt = utilities.findNearestPoly(x, y, grid);
+        return utilities.findNearestPoly(x, y, drawing.grid);
+    }
+    function drawImage(pt){
         if (pt && notAlreadyAdded(pt)) {
 
             path.push(pt);
             drawing.drawTrash(pt.x, pt.y);
         }
     }
-
-    canvas[0].addEventListener('mousedown', function (evt) {
-        var mousePos = getMousePos(canvas, evt);
-    }, false);
+    canvas.on('mousedown', function (evt) {
+        var mousePos = getMousePos(evt);
+            drawImage(mousePos);
+    });
     button.on("click", function (evt) {
         $.ajax({
             method: "POST",
@@ -41,6 +42,20 @@ $(document).ready(function () {
                 travelToPath(response);
         });
     });
+    gridSelect.on("change",function(evt){
+      var val=evt.target.value;
+        drawing.clearCanvas();
+        drawing.initCanvas();
+        gridSize=+val;
+        drawing.drawBoard(+val,+val);
+        path=[];
+    });
+    function reset(){
+        drawing.clearCanvas();
+        drawing.initCanvas();
+        drawing.drawBoard(gridSize,gridSize);
+        path=[];
+    }
     function notAlreadyAdded(pt) {
         for (var i = 0, l = path.length; i < l; i++) {
             if (path[i].x == pt.x && path[i].y == pt.y) {
@@ -60,4 +75,6 @@ $(document).ready(function () {
             j++;
         }
     }
+
+    $('#reset').on("click",reset);
 });

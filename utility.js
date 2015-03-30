@@ -73,5 +73,13 @@ var utilities  = {
                 return {x: x2, y: y2};
             }
         }
+    },
+    displayToast:function(text){
+        var logDiv=$('#log');
+        logDiv.text(text);
+        logDiv.stop();
+        logDiv.fadeIn(1000);
+        logDiv.fadeOut(0);
     }
+
 };

@@ -1,9 +1,19 @@
 #myCanvas{
     margin-left:5%;
     display: block;
+    margin-top: 20px;
 }
 #runSimulation{
-    margin: 5% 0% 0% 5%;
+    margin-left: 2%;
+    height: 38px;
+    width: 149px;
+    border-radius: 4px;
+    font-size: 17px;
+    color: blue;
+    cursor: pointer;
+}
+#reset{
+    margin-left: 2%;
     height: 38px;
     width: 149px;
     border-radius: 4px;
@@ -12,5 +22,35 @@
     cursor: pointer;
 }
 .headerText{
-    color:green;
+    color:red;
+}
+#log {
+    width:200px;
+    height:20px;
+    height:auto;
+    position:absolute;
+    left:50%;
+    margin-left:-100px;
+    bottom:10px;
+    background-color: #ff0000;
+    color: #F0F0F0;
+    font-family: Calibri;
+    font-size: 20px;
+    padding:10px;
+    text-align:center;
+    border-radius: 2px;
+    -webkit-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    -moz-box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+    box-shadow: 0px 0px 24px -1px rgba(56, 56, 56, 1);
+}
+#labelSelect{
+    margin-left: 5%;
+    color: white;
+    font-size: 24px;
+}
+#gridSelect {
+    font-size: 19px;
+    width: 92px;
+    margin-left: 2%;
+    border: 4px solid yellow;
 }

@@ -16,12 +16,10 @@ var server=app.listen(port, function() {
 	console.log('server listening on port ' + port+host);
 });
 app.post('/getPath', function (req, res) {
-	console.log("Got request on node to calculate path")
+	console.log("Got request on node to calculate path");
 	var path=req.body.path;
 	var robotPos=req.body.robotPos;
-	path.sort(function (a, b) {
-		return utilities.distance(robotPos, a) - utilities.distance(robotPos, b);
-	});
+    path=utilities.sortDistanceWise(robotPos,path);
 	var tPath=utilities.calculateThePath(path);
 	console.log("Sending Response Back");
 	res.json(tPath);
