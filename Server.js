@@ -17,10 +17,20 @@ var server=app.listen(port, function() {
 });
 app.post('/getPath', function (req, res) {
 	console.log("Got request on node to calculate path");
-	var path=req.body.path;
-	var robotPos=req.body.robotPos;
-    path=utilities.sortDistanceWise(robotPos,path);
-	var tPath=utilities.calculateThePath(path);
-	console.log("Sending Response Back");
-	res.json(tPath);
+    var path,tPath,robotPos,currAlgo;
+	 path=req.body.path;
+	 robotPos=req.body.robotPos;
+     currAlgo=req.body.algo;
+    if(currAlgo=="Greedy"){
+        path=utilities.sortDistanceWise(robotPos,path);
+         tPath=utilities.calculateThePath(path);
+        console.log("Sending Response Back");
+        res.json(tPath);
+    }else{
+        path=utilities.bruteForce(robotPos,path);
+         tPath=utilities.calculateThePath(path);
+        console.log("Sending Response Back");
+        res.json(tPath);
+    }
+
 });

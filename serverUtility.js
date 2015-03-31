@@ -95,5 +95,40 @@ module.exports  = {
          path.push(currentPoint);
         }
         return path;
+    },
+    bruteForce:function(robotPos,points){
+        var combinations=this.getAllCombinations(points);
+        var distances=[];
+        for(var i= 0,l=combinations.length;i<l;i++){
+            Array.prototype.unshift.call(combinations[i],robotPos);
+            var distance=0;
+            var currComb=combinations[i];
+            for(var j= 0,k=currComb.length;j<k-1;j++){
+                distance+=this.distance(currComb[j],currComb[j+1]);
+            }
+            distances.push(distance);
+        }
+       var index= distances.indexOf(Math.min.apply(Math, distances));
+        return combinations[index];
+    },
+    getAllCombinations:function(points){
+        if (points.length == 0)
+            return [[]];
+
+
+        var result = [];
+
+        for (var i=0; i<points.length; i++)
+        {
+            var copy = Object.create(points);
+            var head = copy.splice(i, 1);
+            var rest = this.getAllCombinations(copy);
+            for (var j=0; j<rest.length; j++)
+            {
+                var next = head.concat(rest[j]);
+                result.push(next);
+            }
+        }
+        return result;
     }
 };

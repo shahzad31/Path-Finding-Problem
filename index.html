@@ -9,12 +9,17 @@
 </head>
 <body background="background.jpg">
 <h1 class="headerText">TrashBot</h1>
-<label for="gridSelect" id="labelSelect">Grid Size</label>
-<Select id="gridSelect">
+<label for="gridSelect" id="labelSelect" class="labelSelect">Grid Size</label>
+<Select id="gridSelect" class="selectClass">
     <option value="3">3 x 3</option>
     <option value="6" selected>6 x 6</option>
     <option value="8">8 x 8</option>
     <option value="9">9 x 9</option>
+</Select>
+<label for="gridSelect" id="algoSelectLabel" class="labelSelect">Grid Size</label>
+<Select id="algoSelect" class="selectClass">
+    <option value="Brute">BruteForce</option>
+    <option value="Greedy" selected>Greedy</option>
 </Select>
 <button id="runSimulation">Run Simulation</button>
 <button id="reset">Reset</button>

@@ -7,12 +7,13 @@ $(document).ready(function () {
     var canvas= $("#myCanvas");
     var canvasObj = canvas[0];
     var gridSelect=$("#gridSelect");
+    var algoSelect=$("#algoSelect");
     var button = $("#runSimulation");
     var drawing = new DrawingUtility();
     drawing.init(robotPos,grid,TR,canvasObj);
     utilities.TR=TR;
     drawing.drawBoard(6,6);
-
+    var currAlgo="Greed";
     function getMousePos(evt) {
         var rect = canvasObj.getBoundingClientRect();
         var x = evt.clientX - rect.left;
@@ -37,7 +38,7 @@ $(document).ready(function () {
             headers: {
             'Content-Type':'application/json'
             },
-            data:JSON.stringify({'path':path,'robotPos':robotPos}) 
+            data:JSON.stringify({'path':path,'robotPos':robotPos,'algo':currAlgo})
         }).done(function( response ) {
                 travelToPath(response);
         });
@@ -49,6 +50,9 @@ $(document).ready(function () {
         gridSize=+val;
         drawing.drawBoard(+val,+val);
         path=[];
+    });
+    algoSelect.on("change",function(etv){
+         currAlgo=evt.target.value;
     });
     function reset(){
         drawing.clearCanvas();
