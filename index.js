@@ -13,7 +13,8 @@ $(document).ready(function () {
     drawing.init(robotPos,grid,TR,canvasObj);
     utilities.TR=TR;
     drawing.drawBoard(6,6);
-    var currAlgo="Greed";
+    var currAlgo="Greedy";
+    var resetFlag=true;
     function getMousePos(evt) {
         var rect = canvasObj.getBoundingClientRect();
         var x = evt.clientX - rect.left;
@@ -40,6 +41,7 @@ $(document).ready(function () {
             },
             data:JSON.stringify({'path':path,'robotPos':robotPos,'algo':currAlgo})
         }).done(function( response ) {
+                path=[];
                 travelToPath(response);
         });
     });
@@ -51,7 +53,7 @@ $(document).ready(function () {
         drawing.drawBoard(+val,+val);
         path=[];
     });
-    algoSelect.on("change",function(etv){
+    algoSelect.on("change",function(evt){
          currAlgo=evt.target.value;
     });
     function reset(){
